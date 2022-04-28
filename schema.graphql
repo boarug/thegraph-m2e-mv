@@ -14,16 +14,7 @@ type Transfer @entity {
 	timestamp: BigInt!
 }
 
-type Token @entity {
-	id: ID!
-	owner: Holder! # address
-	latestTx: Bytes! # address
-	transfersCount: BigInt!
-	updatedAt: BigInt!
-	info: TokenInfo!
-}
-
-type TokenInfo @entity {
+type TokenInfo @entity(immutable: true)  {
 	id: ID!
 	rare: Int!
 	code: BigInt!
@@ -31,4 +22,13 @@ type TokenInfo @entity {
 	effective: Int!
 	quality: Int!
 	luck: Int!
+}
+
+type Token @entity {
+	id: ID!
+	owner: Holder!
+	latestTx: Bytes! # address
+	transfersCount: BigInt!
+	updatedAt: BigInt!
+	info: TokenInfo!
 }

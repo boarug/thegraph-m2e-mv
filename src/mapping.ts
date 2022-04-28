@@ -19,8 +19,8 @@ function getToken(tokenId: BigInt): Token {
     return token
 }
 
-function updateTokenInfo(tokenId: BigInt): void {
-    let contract = NFT.bind(Address.fromString("0xE1dDB8Fd82057bF4fC930592FF2A106634C7a292"))
+function updateTokenInfo(address: Address, tokenId: BigInt): void {
+    let contract = NFT.bind(address)
     let tokenInfo = TokenInfo.load(tokenId.toString())
     if (!tokenInfo) {
         tokenInfo = new TokenInfo(tokenId.toString())
@@ -60,12 +60,13 @@ export function handleTransfer(event: Transfer): void {
     transfer.timestamp = event.block.timestamp
     transfer.save()
 
-    updateTokenInfo(event.params.tokenId)
+    updateTokenInfo(event.address, event.params.tokenId)
 
     let token = getToken(event.params.tokenId)
     token.owner = event.params.to.toHex()
     token.updatedAt = event.block.timestamp
     token.latestTx = event.transaction.hash
     token.transfersCount = token.transfersCount.plus(BigInt.fromI32(1))
+    token.info = event.params.tokenId.toString()
     token.save()
 }
