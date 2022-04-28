@@ -32,6 +32,7 @@ function updateTokenInfo(tokenId: BigInt): void {
         tokenInfo.effective = props[0]
         tokenInfo.quality = props[1]
         tokenInfo.luck = props[2]
+        tokenInfo.save()
     }
 }
 
