@@ -20,10 +20,15 @@ type Token @entity {
 	latestTx: Bytes! # address
 	transfersCount: BigInt!
 	updatedAt: BigInt!
+	info: TokenInfo!
 }
 
-type Info @entity {
+type TokenInfo @entity {
 	id: ID!
-	totalSupply: BigInt!
-	txns: BigInt!
+	rare: Int!
+	code: BigInt!
+	topey: String!
+	effective: Int!
+	quality: Int!
+	luck: Int!
 }

@@ -53,6 +53,89 @@
         "anonymous": false,
         "inputs": [
             {
+                "indexed": false,
+                "internalType": "enum MoveyNFT.Rare",
+                "name": "rare",
+                "type": "uint8"
+            }
+        ],
+        "name": "ConfigProperties",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            }
+        ],
+        "name": "Create",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "supply",
+                "type": "uint256"
+            }
+        ],
+        "name": "IncreaseSuplly",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "exp",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "levelUp",
+                "type": "uint256"
+            }
+        ],
+        "name": "LevelUp",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "code",
+                "type": "uint256"
+            }
+        ],
+        "name": "MoveyCode",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
                 "indexed": true,
                 "internalType": "bytes32",
                 "name": "role",
@@ -150,6 +233,31 @@
         "type": "event"
     },
     {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "part7",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "part8",
+                "type": "uint256"
+            }
+        ],
+        "name": "UpgradeSpecial",
+        "type": "event"
+    },
+    {
         "inputs": [],
         "name": "DEFAULT_ADMIN_ROLE",
         "outputs": [
@@ -157,6 +265,51 @@
                 "internalType": "bytes32",
                 "name": "",
                 "type": "bytes32"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "OWNER",
+        "outputs": [
+            {
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "SHOP",
+        "outputs": [
+            {
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "enum MoveyNFT.Rare",
+                "name": "_rare",
+                "type": "uint8"
+            }
+        ],
+        "name": "_generateProperties",
+        "outputs": [
+            {
+                "internalType": "uint16[3]",
+                "name": "props",
+                "type": "uint16[3]"
             }
         ],
         "stateMutability": "view",
@@ -202,6 +355,66 @@
     {
         "inputs": [
             {
+                "internalType": "enum MoveyNFT.Rare",
+                "name": "_rare",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint16[2]",
+                "name": "_EFFECTIVEs",
+                "type": "uint16[2]"
+            },
+            {
+                "internalType": "uint16[2]",
+                "name": "_QUALITYs",
+                "type": "uint16[2]"
+            },
+            {
+                "internalType": "uint16[2]",
+                "name": "_LUCKs",
+                "type": "uint16[2]"
+            }
+        ],
+        "name": "configProperties",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_to",
+                "type": "address"
+            }
+        ],
+        "name": "createMovey",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "existCodes",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "uint256",
                 "name": "tokenId",
                 "type": "uint256"
@@ -213,6 +426,61 @@
                 "internalType": "address",
                 "name": "",
                 "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "getMoveyInfo",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "code",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "enum MoveyNFT.Topey",
+                        "name": "topey",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "enum MoveyNFT.Rare",
+                        "name": "rare",
+                        "type": "uint8"
+                    }
+                ],
+                "internalType": "struct MoveyNFT.Movey",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "getProperties",
+        "outputs": [
+            {
+                "internalType": "uint16[3]",
+                "name": "",
+                "type": "uint16[3]"
             }
         ],
         "stateMutability": "view",
@@ -282,6 +550,19 @@
     {
         "inputs": [
             {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "increaseSupply",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "string",
                 "name": "_name",
                 "type": "string"
@@ -290,9 +571,14 @@
                 "internalType": "string",
                 "name": "_symbol",
                 "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "_randomizer",
+                "type": "address"
             }
         ],
-        "name": "initialize",
+        "name": "init",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -323,7 +609,7 @@
     },
     {
         "inputs": [],
-        "name": "latestTokenId",
+        "name": "maxSupply",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -337,14 +623,54 @@
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "_user",
-                "type": "address"
+                "internalType": "enum MoveyNFT.Rare",
+                "name": "",
+                "type": "uint8"
+            },
+            {
+                "internalType": "enum MoveyNFT.Property",
+                "name": "",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
             }
         ],
-        "name": "mint",
-        "outputs": [],
-        "stateMutability": "nonpayable",
+        "name": "minMaxCode",
+        "outputs": [
+            {
+                "internalType": "uint16",
+                "name": "",
+                "type": "uint16"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_any",
+                "type": "uint256"
+            }
+        ],
+        "name": "moveyCode",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "enum MoveyNFT.Rare",
+                "name": "",
+                "type": "uint8"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -374,6 +700,62 @@
                 "internalType": "address",
                 "name": "",
                 "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "properties",
+        "outputs": [
+            {
+                "internalType": "uint16",
+                "name": "",
+                "type": "uint16"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "randomizer",
+        "outputs": [
+            {
+                "internalType": "contract IRandomizer",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "ranges",
+        "outputs": [
+            {
+                "internalType": "uint16",
+                "name": "",
+                "type": "uint16"
             }
         ],
         "stateMutability": "view",

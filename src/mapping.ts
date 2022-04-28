@@ -1,7 +1,7 @@
-import {Address, BigInt, log} from "@graphprotocol/graph-ts"
+import {Address, BigInt} from "@graphprotocol/graph-ts"
 
 import {NFT, Transfer} from "../generated/NFT/NFT"
-import {Holder, Info, Token, Transfer as TransferEvent} from "../generated/schema"
+import {Holder, Token, TokenInfo, Transfer as TransferEvent} from "../generated/schema"
 
 function getHolder(address: string): Holder {
     let holder = Holder.load(address)
@@ -19,34 +19,27 @@ function getToken(tokenId: BigInt): Token {
     return token
 }
 
-function updateInfo(address: Address): void {
-    const nft_info_id = "NFT"
-    let nftInfo = Info.load(nft_info_id)
-    if (!nftInfo) {
-        nftInfo = new Info(nft_info_id)
-        nftInfo.txns = BigInt.zero()
+function updateTokenInfo(tokenId: BigInt): void {
+    let contract = NFT.bind(Address.fromString("0xE1dDB8Fd82057bF4fC930592FF2A106634C7a292"))
+    let tokenInfo = TokenInfo.load(tokenId.toString())
+    if (!tokenInfo) {
+        tokenInfo = new TokenInfo(tokenId.toString())
+        let moveyInfo = contract.getMoveyInfo(tokenId)
+        tokenInfo.rare = moveyInfo.rare + 1
+        tokenInfo.code = moveyInfo.code
+        tokenInfo.topey = ["jogging", "running", "walking"][moveyInfo.topey]
+        let props = contract.getProperties(tokenId)
+        tokenInfo.effective = props[0]
+        tokenInfo.quality = props[1]
+        tokenInfo.luck = props[2]
     }
-
-    let contract = NFT.bind(address)
-    nftInfo.totalSupply = contract.totalSupply()
-    nftInfo.txns = nftInfo.txns.plus(BigInt.fromI32(1))
-    nftInfo.save()
 }
 
-export function handleTransferTemplate(event: Transfer): void {
-
-    log.debug("handle transfer template: from {} to {} id {}", [
-        event.params.from.toHexString(),
-        event.params.to.toHexString(),
-        event.params.tokenId.toHexString(),
-    ])
-
-    handleTransfer(event)
-}
+// export function handleTransferTemplate(event: Transfer): void {
+//     handleTransfer(event)
+// }
 
 export function handleTransfer(event: Transfer): void {
-    updateInfo(event.address)
-
     if (event.params.from != Address.zero()) {
         let from = getHolder(event.params.from.toHex())
         from.sentCount = from.sentCount + 1
@@ -65,6 +58,8 @@ export function handleTransfer(event: Transfer): void {
     transfer.tokenId = event.params.tokenId
     transfer.timestamp = event.block.timestamp
     transfer.save()
+
+    updateTokenInfo(event.params.tokenId)
 
     let token = getToken(event.params.tokenId)
     token.owner = event.params.to.toHex()
